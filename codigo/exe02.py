@@ -60,8 +60,7 @@ class ContaBancaria:
         while True:
             conta = int(input("Qual o número da conta que deseja sacar? "))
 
-            # Comparamos o número digitado pelo usuário (conta)
-            # com o número da conta armazenado no objeto.
+            # Comparamos o número digitado pelo usuário (conta) com o número da conta armazenado no objeto.
             # get_numero_conta() é o metodo que criamos para acessar o atributo privado __numero_conta.
             # Os parênteses () são necessários porque estamos chamando/executando o metodo.
             if conta == self.get_numero_conta():
@@ -70,23 +69,20 @@ class ContaBancaria:
                 # get_saldo() pega o valor atual do atributo privado __saldo. (get_saldo éo metodo criado para isso)
                 if valor <= self.get_saldo():
 
-                    # Primeiro pegamos o saldo atual usando get_saldo(). Depois diminuímos o valor que será sacado (usa esse nome get_saldo, pois foi o metodo criado para isso)
-                    # Por fim, usamos set_saldo() para colocar o novo saldo dentro do atributo privado __saldo.
+                    # Primeiro pega o saldo atual usando get_saldo(). Depois diminui o valor que será sacado (usa esse nome get_saldo, pois foi o metodo criado para isso)
+                    # Por fim, usa set_saldo() para colocar o novo saldo dentro do atributo privado __saldo.
                     self.set_saldo(self.get_saldo() - valor)
-
-                    print("Resgate realizado com sucesso")
+                    print ("Resgate realizado com sucesso")
                     break
 
                 else:
                     # get_saldo() pega o saldo atual para mostrar quanto a pessoa possui.
-                    print(
-                        f"Saldo insuficiente, você possui apenas "
-                        f"R${self.get_saldo()} e tentou sacar R${valor}"
-                    )
+                    print( f"Saldo insuficiente, você possui apenas " f"R${self.get_saldo()} e tentou sacar R${valor}" )
                     valor = int(input("Por favor, digite outro valor:"))
 
+
             else:
-                print("Conta não encontrada, digite novamente")
+                print ("Conta não encontrada, digite novamente")
 
 
     def extrato(self):
@@ -100,25 +96,4 @@ class ContaBancaria:
             f"-----------------------------------\n"
         )
 
-# Executa este código somente quando o arquivo for executado diretamente,
-# evitando que ele seja executado automaticamente quando for importado pelos testes.
-if __name__ == "__main__":
-    # Cria uma conta com titular, número e saldo inicial
-    meu_extrato = ContaBancaria(
-        titular="Matheus Comastri de Oliveira Leite",
-        numero_conta=123,
-        saldo=30
-    )
 
-    # Pede o valor que será depositado
-    valor = int(input("Digite o valor que deseja depositar: "))
-    meu_extrato.depositar(valor)
-    # Realiza o depósito na conta
-
-    # Pede o valor que será sacado
-    valor = int(input("Digite o valor que deseja sacar: "))
-    meu_extrato.sacar(valor)
-    # Realiza o saque na conta
-
-    # Mostra o extrato atualizado da conta
-    print(meu_extrato.extrato())

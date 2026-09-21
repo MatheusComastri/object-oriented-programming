@@ -1,6 +1,6 @@
 from codigo.exe03 import Livro
 
-def test_criar_livro():
+def test_getters_e_setters():
     meu_livro = Livro(
         titulo="A Sociedade do Anel",
         autor="J.R.R. Tolkien",
@@ -9,12 +9,18 @@ def test_criar_livro():
         numero_paginas=576
     )
 
-    assert meu_livro.get_titulo() == "A Sociedade do Anel"
-    assert meu_livro.get_autor() == "J.R.R. Tolkien"
-    assert meu_livro.get_genero() == "Fantasia Épica"
-    assert meu_livro.get_ano_publicacao() == 1954
-    assert meu_livro.get_numero_paginas() == 576
+    meu_livro.set_titulo("O Hobbit")
+    meu_livro.set_autor("J.R.R. Tolkien")
+    meu_livro.set_genero("Fantasia")
+    meu_livro.set_ano_publicacao(1937)
+    meu_livro.set_numero_paginas(310)
 
+    assert meu_livro.get_titulo() == "O Hobbit"
+    assert meu_livro.get_autor() == "J.R.R. Tolkien"
+    assert meu_livro.get_genero() == "Fantasia"
+    assert meu_livro.get_ano_publicacao() == 1937
+    assert meu_livro.get_numero_paginas() == 310
+    
 # ----------------------------------------------------------------------------------------------------------------------------
 
 def test_abrir_livro(monkeypatch, capsys):
@@ -98,7 +104,7 @@ def test_fechar_livro(monkeypatch, capsys):
     monkeypatch.setattr("builtins.input", lambda _: "Sim")
     meu_livro.fechar()
     saida = capsys.readouterr()
-    assert "Livro fechado, até outra hora!"
+    assert "Livro fechado, até outra hora!" in saida.out
 
 
 def test_nao_fechar_livro(monkeypatch, capsys):
@@ -113,7 +119,7 @@ def test_nao_fechar_livro(monkeypatch, capsys):
     monkeypatch.setattr("builtins.input", lambda _: "Nao")
     meu_livro.fechar()
     saida = capsys.readouterr()
-    assert "Certo, continue sua leitura!"
+    assert "Certo, continue sua leitura!" in saida.out
 
 
 def test_fechar_livro_resposta_invalida(monkeypatch, capsys):
@@ -178,7 +184,7 @@ def test_nao_marcar_pagina(monkeypatch, capsys):
     monkeypatch.setattr("builtins.input", lambda _: "Nao")
     meu_livro.marcar_pagina()
     saida = capsys.readouterr()
-    assert "Certo, caso queira marcar, é só dizer"
+    assert "Certo, caso queira marcar, é só dizer" in saida.out
 
 
 def test_marcar_pagina_resposta_invalida(monkeypatch, capsys):
@@ -264,7 +270,7 @@ def test_nao_avancar_pagina(monkeypatch, capsys):
     monkeypatch.setattr("builtins.input", lambda _: "Nao")
     meu_livro.avancar_pagina()
     saida = capsys.readouterr()
-    assert "Okay, caso queira é só falar"
+    assert "Okay, caso queira é só falar" in saida.out
 
 
 def test_nao_avancar_pagina_resposta_invalida(monkeypatch, capsys):
@@ -284,3 +290,93 @@ def test_nao_avancar_pagina_resposta_invalida(monkeypatch, capsys):
     assert "Okay, caso queira é só falar" in saida.out
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+def test_retroceder_pagina(monkeypatch, capsys):
+    meu_livro = Livro(
+        titulo="A Sociedade do Anel",
+        autor="J.R.R. Tolkien",
+        genero="Fantasia Épica",
+        ano_publicacao=1954,
+        numero_paginas=576,
+        pagina_atual=100  # estou add esse atributo para começar na pagina desejada
+    )
+
+    monkeypatch.setattr("builtins.input", lambda _: "Sim")
+    meu_livro.retroceder_pagina()
+    saida = capsys.readouterr()
+    assert meu_livro.get_pagina_atual() == 99
+    assert "Você voltou para a página 99!" in saida.out
+
+
+def test_retroceder_pagina_primeira(monkeypatch, capsys):
+    meu_livro = Livro(
+        titulo="A Sociedade do Anel",
+        autor="J.R.R. Tolkien",
+        genero="Fantasia Épica",
+        ano_publicacao=1954,
+        numero_paginas=576,
+        pagina_atual=1 # estou add esse atributo para começar na pagina desejada
+    )
+
+    monkeypatch.setattr("builtins.input", lambda _: "Sim")
+    meu_livro.retroceder_pagina()
+    saida = capsys.readouterr()
+    # verifica se contina sendo a página 1
+    assert meu_livro.get_pagina_atual() == 1
+    assert "Você está na primeira página" in saida.out
+
+
+def test_nao_retroceder(monkeypatch, capsys):
+    meu_livro = Livro(
+        titulo="A Sociedade do Anel",
+        autor="J.R.R. Tolkien",
+        genero="Fantasia Épica",
+        ano_publicacao=1954,
+        numero_paginas=576,
+        pagina_atual=100
+    )
+
+    monkeypatch.setattr("builtins.input", lambda _: "Nao")
+    meu_livro.retroceder_pagina()
+    saida = capsys.readouterr()
+    assert "Okay, caso queira é só falar" in saida.out
+
+
+def test_retroceder_invalida(monkeypatch, capsys):
+    meu_livro = Livro(
+        titulo="A Sociedade do Anel",
+        autor="J.R.R. Tolkien",
+        genero="Fantasia Épica",
+        ano_publicacao=1954,
+        numero_paginas=576,
+        pagina_atual=100
+    )
+
+    entradas = iter(["Talvez", "Nao"])
+    monkeypatch.setattr("builtins.input", lambda _: next(entradas))
+    meu_livro.retroceder_pagina()
+    saida = capsys.readouterr()
+
+    assert "Não entendi sua resposta, digite novamente" in saida.out
+    assert "Okay, caso queira é só falar" in saida.out
+
+# ----------------------------------------------------------------------------------------------------------------------------
+
+def test_ficha_catalografica(monkeypatch, capsys):
+    meu_livro = Livro(
+        titulo="A Sociedade do Anel",
+        autor="J.R.R. Tolkien",
+        genero="Fantasia Épica",
+        ano_publicacao=1954,
+        numero_paginas=576,
+        pagina_atual=100
+    )
+
+    ficha = meu_livro.ficha_catalografica()
+
+    assert "A Sociedade do Anel" in ficha
+    assert "J.R.R. Tolkien" in ficha
+    assert "Fantasia Épica" in ficha
+    assert "1954" in ficha
+    assert "576" in ficha
+    assert "100" in ficha

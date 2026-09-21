@@ -1,0 +1,38 @@
+ NOTAS:
+
+ Uso o monkeypatch porque os métodos da classe possuem input(). Assim, o teste fornece as respostas automaticamente, sem precisar digitar durante a execução do pytest.
+
+ Uso capsys porque os métodos da classe usam print(). O capsys.readouterr() captura o texto que foi impresso pelo metodo
+
+ Depois, uso saida.out porque quero verificar a saída de texto produzida pelo print() -> assert "Você está na primeira página" in saida.out
+   saida.out é usado especificamente para verificar o texto que foi impresso pelo print()
+
+=================================================================================================================================================
+
+COM "in saida.out":
+ Verifica se o texto esperado está dentro do que foi impresso pelo print(). -> assert "Mensagem esperada" in saida.out
+
+SEM "in saida.out":
+ Usado quando quero verificar diretamente o valor de uma variável,
+ por exemplo, um valor retornado por uma função com return. -> assert resultado == "Mensagem esperada"
+
+Se o código usa print() → use capsys e saida.out.
+ Se o código usa return → teste o valor que foi retornado, sem saida.out.
+
+ =================================================================================================================================================
+
+capsys é usado para capturar mensagens exibidas com print().
+
+return não precisa de capsys, pois o valor retornado pode ser guardado diretamente em uma variável.
+
+ print() -> capsys
+ return -> variável
+
+ =================================================================================================================================================
+
+sempre que tiver um if eu preciso realizar um test para cada condição
+     def remover_estoque(self, quantidade):
+         if quantidade <= self.get_quantidade_estoque():
+             self.set_quantidade_estoque(self.get_quantidade_estoque() - quantidade)
+
+ nese caso, eu faria, um teste para veriicar cada condição, para caso a quantidade seja menor ou igual a quantidade no estoque  e um outro para quantidade retirada ser maior que a do estoque

@@ -111,9 +111,10 @@ class Livro:
         while True:
             resposta = input("Deseja retrocer a página? (Digite 'Sim' ou 'Nao'): ").strip().capitalize()
             if resposta == 'Sim':
-                if self.get_pagina_atual() > 0:
+                if self.get_pagina_atual() > 1:
                     self.set_pagina_atual(self.get_pagina_atual() - 1)
                     print(f"Você voltou para a página {self.get_pagina_atual()}!")
+                    break
                 else:
                     print("Você está na primeira página")
                     break
@@ -135,11 +136,3 @@ class Livro:
             f"Página atual: {self.get_pagina_atual()}\n"
             f"-----------------------------------"
         )
-
-# meu_livro = Livro(titulo="A Sociedade do Anel", autor="J.R.R. Tolkien", genero="Fantasia Épica", ano_publicacao=1954, numero_paginas=576 )
-
-#meu_livro.abrir()
-#meu_livro.marcar_pagina()
-# meu_livro.avancar_pagina()
-#meu_livro.retroceder_pagina()
-# print(meu_livro.ficha_catalografica())

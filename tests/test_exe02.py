@@ -1,11 +1,11 @@
 from codigo.exe02 import ContaBancaria
 
 
-def test_deve_modificar_titular():
+def test_getters_e_setters():
     conta = ContaBancaria(titular="Matheus Comastri de Oliveira Leite", numero_conta=123, saldo=20 )
-    conta.set_titular("João")
+    conta.set_titular("Duda")
 
-    assert conta.get_titular() == "João"
+    assert conta.get_titular() == "Duda"
 
 
 def test_deve_modificar_numero_conta():
@@ -50,6 +50,7 @@ def test_deve_sacar(monkeypatch):
 
 def test_deve_mostrar_extrato():
     conta = ContaBancaria("Matheus", 123, 30)
+    # Chama o metodo extrato() da classe ContaBancaria usando o objeto conta.
     extrato = conta.extrato()
 
     assert "Matheus" in extrato
@@ -57,5 +58,7 @@ def test_deve_mostrar_extrato():
     assert "30" in extrato
 
 
-# get = consultar
-# set = alterar
+
+
+
+
