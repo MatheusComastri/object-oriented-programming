@@ -32,8 +32,6 @@ def test_receber_aumento():
     assert funcionario.get_salario() == 3300
 
 
-
-
 def test_mudar_departamento_mesmo(monkeypatch, capsys):
     funcionario = Funcionario(
         nome="Mateus",
