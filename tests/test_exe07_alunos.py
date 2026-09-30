@@ -1,18 +1,20 @@
 from codigo.exe_07_heranca import *
 
-# Testa se é possível alterar e recuperar o nome de Pessoa.
+
+# ===============================================================
+# TESTES DA CLASSE PESSOA
+
 def test_retornar_nome_pessoa():
-    # Cria um objeto Pessoa.
     pessoa = Pessoa(
         nome="Matheus",
         cpf=12345678
     )
-    # Altera o nome através do setter.
+
     pessoa.set_nome("João")
-    # Verifica se o getter retorna o novo nome.
+
     assert pessoa.get_nome() == "João"
 
-# Testa se é possível alterar e recuperar o CPF.
+
 def test_retornar_cpf_pessoa():
     pessoa = Pessoa(
         nome="Matheus",
@@ -20,13 +22,13 @@ def test_retornar_cpf_pessoa():
     )
 
     pessoa.set_cpf(87654321)
+
     assert pessoa.get_cpf() == 87654321
 
 
+# ===============================================================
+# TESTES DA CLASSE PROFESSOR
 
-# ==================================================================================================
-
-# Testa o nome herdado por Professor.
 def test_retornar_nome_professor():
     professor = Professor(
         nome="Matheus",
@@ -34,11 +36,11 @@ def test_retornar_nome_professor():
         titulacao="Mestre"
     )
 
-    # Usa o setter herdado de Pessoa.
     professor.set_nome("Bruno")
+
     assert professor.get_nome() == "Bruno"
 
-# Testa o CPF herdado por Professor.
+
 def test_retornar_cpf_professor():
     professor = Professor(
         nome="Matheus",
@@ -47,10 +49,10 @@ def test_retornar_cpf_professor():
     )
 
     professor.set_cpf(456123789)
+
     assert professor.get_cpf() == 456123789
 
 
-# Testa a titulação específica do Professor.
 def test_retornar_titulacao_professor():
     professor = Professor(
         nome="Matheus",
@@ -59,10 +61,10 @@ def test_retornar_titulacao_professor():
     )
 
     professor.set_titulacao("Doutor")
+
     assert professor.get_titulacao() == "Doutor"
 
 
-# Testa o metodo que exibe os dados do professor.
 def test_exibir_dados_professor():
     professor = Professor(
         nome="Matheus",
@@ -70,159 +72,245 @@ def test_exibir_dados_professor():
         titulacao="Mestre"
     )
 
-    # Guarda o texto retornado pelo metodo.
     dados = professor.exibir_dados_professor()
 
-    # Verifica se o nome está no texto.
     assert "Matheus" in dados
-
-    # Verifica se a titulação está no texto.
     assert "Mestre" in dados
 
 
+# ===============================================================
+# TESTES DA CLASSE ALUNO
 
-# =======================================================================
-
-# Testa o nome herdado por Aluno.
 def test_retornar_nome_aluno():
     aluno = Aluno(
         nome="Matheus",
         cpf=12345678,
         matricula=123456789,
-        escola_segundo_grau="Apogeu"
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
     )
 
     aluno.set_nome("Henrique")
+
     assert aluno.get_nome() == "Henrique"
 
 
-# Testa o CPF herdado por Aluno.
 def test_retornar_cpf_aluno():
     aluno = Aluno(
         nome="Matheus",
         cpf=12345678,
         matricula=123456789,
-        escola_segundo_grau="Apogeu"
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
     )
 
     aluno.set_cpf(456123789)
+
     assert aluno.get_cpf() == 456123789
 
 
-# Testa a matrícula do Aluno.
 def test_retornar_matricula_aluno():
     aluno = Aluno(
         nome="Matheus",
         cpf=12345678,
         matricula=123456789,
-        escola_segundo_grau="Apogeu"
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
     )
 
     aluno.set_matricula(456123789)
+
     assert aluno.get_matricula() == 456123789
 
 
-# Testa a escola de segundo grau.
 def test_retornar_escola_segundo_grau_aluno():
     aluno = Aluno(
         nome="Matheus",
         cpf=12345678,
         matricula=123456789,
-        escola_segundo_grau="Apogeu"
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
     )
 
     aluno.set_escola_segundo_grau("Jesuitas")
+
     assert aluno.get_escola_segundo_grau() == "Jesuitas"
 
 
-# Testa a situação um aluno do ensino médio aprovado.
-def test_aproveitamento_escola_aluno_aprovado(): #
+def test_retornar_nota1_aluno():
+    aluno = Aluno(
+        nome="Matheus",
+        cpf=12345678,
+        matricula=123456789,
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
+    )
+
+    aluno.set_nota1(9)
+
+    assert aluno.get_nota1() == 9
+
+
+def test_retornar_nota2_aluno():
+    aluno = Aluno(
+        nome="Matheus",
+        cpf=12345678,
+        matricula=123456789,
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
+    )
+
+    aluno.set_nota2(7)
+
+    assert aluno.get_nota2() == 7
+
+
+def test_calcular_media_aluno():
+    aluno = Aluno(
+        nome="Matheus",
+        cpf=12345678,
+        matricula=123456789,
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=6
+    )
+
+    resultado = aluno.calcular_media()
+
+    assert resultado == 7
+
+
+# ===============================================================
+# TESTES DA CLASSE ALUNO ENSINO MÉDIO
+
+def test_aproveitamento_escola_aluno_aprovado():
     aluno = AlunoEnsinoMedio(
         nome="Matheus",
         cpf=12345678,
         matricula=123456789,
-        escola_segundo_grau="Apogeu"
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
     )
 
-    # Calcula a média: (8 + 5) / 2 = 6.5. -> Passa os parametros 8 e 5 para metodo calcular
-    resultado = aluno.aproveitamento_escola(8, 5)
+    resultado = aluno.aproveitamento_escola()
 
-    # Como 6.5 >= 6, deve ser aprovado.
     assert resultado == "Aprovado"
 
 
-# Testa um aluno do ensino médio reprovado.
 def test_aproveitamento_escola_aluno_reprovado():
     aluno = AlunoEnsinoMedio(
         nome="Matheus",
         cpf=12345678,
         matricula=123456789,
-        escola_segundo_grau="Apogeu"
+        escola_segundo_grau="Apogeu",
+        nota1=4,
+        nota2=5
     )
 
-    resultado = aluno.aproveitamento_escola(4, 5)
+    resultado = aluno.aproveitamento_escola()
 
     assert resultado == "Reprovado"
 
 
-# Testa a exibição dos dados do aluno do ensino médio.
-def test_exibir_dados_escola_aluno():
+def test_calcular_aprovacao_ensino_medio_aprovado():
     aluno = AlunoEnsinoMedio(
         nome="Matheus",
         cpf=12345678,
         matricula=145236987,
-        escola_segundo_grau="Apogeu"
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
     )
 
-    # Chama o metodo e guarda o texto retornado -> passando os parametros (pois no metodo pede o valores de nota)
-    resultado = aluno.exibir_dados_escola(8, 5)
+    resultado = aluno.calcular_aprovacao()
 
-    # Verifica se o nome está no resultado.
-    assert "Matheus" in resultado
-
-    # Verifica se a matrícula está no resultado.
-    assert "145236987" in resultado
-
-    # Verifica se a situação está no resultado.
-    assert "Aprovado" in resultado
-
-
-def test_aproveitamento_aluno_graduacao_aprovado():
-    aluno = AlunoGraduacao(
-        nome="Matheus",
-        cpf=12345678,
-        matricula=123456789,
-        escola_segundo_grau="Apogeu"
-    )
-
-    resultado = aluno.aproveitamento_graduacao(7, 9)
     assert resultado == "Aprovado"
 
 
-# Testa um aluno da graduação aprovado.
-def test_aproveitamento_aluno_graduacao_reprovado():
+def test_exibir_dados_ensino_medio():
+    aluno = AlunoEnsinoMedio(
+        nome="Matheus",
+        cpf=12345678,
+        matricula=145236987,
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
+    )
+
+    resultado = aluno.exibir_dados()
+
+    assert "Matheus" in resultado
+    assert "145236987" in resultado
+    assert "Aprovado" in resultado
+
+
+# ===============================================================
+# TESTES DA CLASSE ALUNO GRADUAÇÃO
+
+def test_aproveitamento_graduacao_aluno_aprovado():
     aluno = AlunoGraduacao(
         nome="Matheus",
         cpf=12345678,
         matricula=123456789,
-        escola_segundo_grau="Apogeu"
+        escola_segundo_grau="Apogeu",
+        nota1=7,
+        nota2=9
     )
 
-    resusltado = aluno.aproveitamento_graduacao(3, 2)
-    assert resusltado == "Reprovado"
+    resultado = aluno.aproveitamento_graduacao()
+
+    assert resultado == "Aprovado"
 
 
-# Testa a exibição dos dados do aluno da graduação.
-def test_exibir_dados_graduacao_aluno():
+def test_aproveitamento_graduacao_aluno_reprovado():
     aluno = AlunoGraduacao(
         nome="Matheus",
         cpf=12345678,
         matricula=123456789,
-        escola_segundo_grau="Apogeu"
+        escola_segundo_grau="Apogeu",
+        nota1=3,
+        nota2=2
     )
 
-    reultado = aluno.exibir_dados_graduacao(8, 5)
+    resultado = aluno.aproveitamento_graduacao()
 
-    assert "Matheus" in reultado
-    assert "123456789" in reultado
-    assert "Reprovado" in reultado
+    assert resultado == "Reprovado"
+
+
+def test_calcular_aprovacao_graduacao_aprovado():
+    aluno = AlunoGraduacao(
+        nome="Matheus",
+        cpf=12345678,
+        matricula=123456789,
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=7
+    )
+
+    resultado = aluno.calcular_aprovacao()
+
+    assert resultado == "Aprovado"
+
+
+def test_exibir_dados_graduacao():
+    aluno = AlunoGraduacao(
+        nome="Matheus",
+        cpf=12345678,
+        matricula=123456789,
+        escola_segundo_grau="Apogeu",
+        nota1=8,
+        nota2=5
+    )
+
+    resultado = aluno.exibir_dados()
+
+    assert "Matheus" in resultado
+    assert "123456789" in resultado
+    assert "Reprovado" in resultado

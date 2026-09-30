@@ -1,14 +1,15 @@
 class Pessoa:
-    # Costrutor -> recebe os dados iniciais da classe pessoa
+    # Construtor -> recebe os dados iniciais da classe Pessoa
     def __init__(self, nome, cpf):
         # Atributos privados da classe
         self.__nome = nome
         self.__cpf = cpf
 
-    # retorna o nome armazenado
+    # Retorna o nome armazenado
     def get_nome(self):
         return self.__nome
-    # altera o nome armazenado
+
+    # Altera o nome armazenado
     def set_nome(self, nome):
         self.__nome = nome
 
@@ -21,15 +22,16 @@ class Pessoa:
 
 # ===============================================================
 
-# a classe professor herda os atributos e metodos de pessoa (profesor tabém posui seus próprios atributos)
+# A classe Professor herda os atributos e métodos de Pessoa.
+# Professor também possui seus próprios atributos.
 
 class Professor(Pessoa):
     def __init__(self, nome, cpf, titulacao):
 
-        # inicializa nome e cpf usando o construtor a classe pessoa -> pois em pessoa eu coloquei como obrigatório inicializar com os dados
+        # Inicializa nome e cpf usando o construtor da classe Pessoa.
         Pessoa.__init__(self, nome, cpf)
 
-        # atributos espcificos de professor
+        # Atributo específico de Professor
         self.__titulacao = titulacao
 
     def get_titulacao(self):
@@ -38,24 +40,29 @@ class Professor(Pessoa):
     def set_titulacao(self, titulacao):
         self.__titulacao = titulacao
 
-    # função para retornar os dados principais de professor
+    # Retorna os dados principais do professor
     def exibir_dados_professor(self):
         return (
-            f"Nome do professor:{self.get_nome()}\n"
-            f"Titulação do professor:{self.get_titulacao()}\n"
+            f"Nome do professor: {self.get_nome()}\n"
+            f"Titulação do professor: {self.get_titulacao()}\n"
         )
 
+
 # ===============================================================
+
 # Aluno também herda da classe Pessoa.
-# Assim como Professor, ele reutiliza os atributos de Pessoa
+# Assim como Professor, ele reutiliza os atributos de Pessoa.
 
 class Aluno(Pessoa):
-    def __init__(self, nome, cpf, matricula, escola_segundo_grau):
+    def __init__(self, nome, cpf, matricula, escola_segundo_grau, nota1, nota2):
 
-        Pessoa.__init__(self, nome, cpf) # inicializando nome e cpf da classe pessoa
+        # Inicializando nome e cpf da classe Pessoa
+        Pessoa.__init__(self, nome, cpf)
 
         self.__matricula = matricula
         self.__escola_segundo_grau = escola_segundo_grau
+        self.__nota1 = nota1
+        self.__nota2 = nota2
 
     def get_matricula(self):
         return self.__matricula
@@ -69,73 +76,101 @@ class Aluno(Pessoa):
     def set_escola_segundo_grau(self, escola_segundo_grau):
         self.__escola_segundo_grau = escola_segundo_grau
 
+    def get_nota1(self):
+        return self.__nota1
+
+    def set_nota1(self, nota1):
+        self.__nota1 = nota1
+
+    def get_nota2(self):
+        return self.__nota2
+
+    def set_nota2(self, nota2):
+        self.__nota2 = nota2
+
+    # Calcula a média usando as notas que já foram armazenadas
+    # no objeto pelo construtor.
+    def calcular_media(self):
+        return (self.__nota1 + self.__nota2) / 2
+
+    # Exibe os dados do aluno e sua situação.
+    def exibir_dados(self):
+        return (
+            # get_nome() vem da classe Pessoa
+            f"Nome do aluno: {self.get_nome()}\n"
+
+            # get_matricula() vem da classe Aluno
+            f"Matricula do aluno: {self.get_matricula()}\n"
+
+            # Chama o metodo calcular_aprovacao().
+            # Esse metodo será definido pelas classes filhas. -> superclasse pode pegar metodos das subclasses
+            f"Situação do aluno: {self.calcular_aprovacao()}\n"
+        )
+
 
 # ===============================================================
 
-# AlunoEnsinoMedio herda de Aluno. Como ela não possui atributos próprios,
-# o __init__ apenas chama o __init__ de Aluno para inicializar os atributos herdados.
+# AlunoEnsinoMedio herda de Aluno.
+# Como não possui atributos próprios, o __init__ apenas
+# chama o __init__ de Aluno para inicializar os atributos herdados.
 
 class AlunoEnsinoMedio(Aluno):
 
-    # Construtor da classe.
-    # Como não existem atributos novos, ele apenas chama o construtor de Aluno.
-    def __init__(self, nome, cpf, matricula, escola_segundo_grau):
+    # Como Aluno agora precisa receber nota1 e nota2,
+    # também precisamos recebê-las aqui para passá-las para Aluno.
+    def __init__(self, nome, cpf, matricula, escola_segundo_grau, nota1, nota2):
 
-        # chama o construtor de aluno para incializar seus aributos
-        Aluno.__init__(self, nome, cpf, matricula, escola_segundo_grau) #
+        # Chama o construtor de Aluno e passa todos os dados.
+        Aluno.__init__(
+            self,
+            nome,
+            cpf,
+            matricula,
+            escola_segundo_grau,
+            nota1,
+            nota2
+        )
 
-    # calcula a media de duas notas e verifica a aprovação
-    def aproveitamento_escola(self, nota1, nota2):
+    # Calcula a aprovação do aluno do Ensino Médio.
+    # As notas já estão armazenadas no objeto,
+    # por isso não precisamos recebê-las novamente.
+    def calcular_aprovacao(self):
 
-        media = (nota1 + nota2) / 2
-
-        if media >= 6:
+        if self.calcular_media() >= 6:
             return "Aprovado"
         else:
             return "Reprovado"
-        # return dados
 
-    # exibe os dados de aluno e sua situação
-    def exibir_dados_escola(self, nota1, nota2):
+    def aproveitamento_escola(self):
+        return self.calcular_aprovacao()
 
-        return (
-            # gett_nome() vem a classe pessoa
-            f"Nome do aluno:{self.get_nome()}\n "
-            
-            # get_matricula() vem da classe aluno
-            f"Matricula do aluno:{self.get_matricula()}\n "
-            
-            # Chama o metodo que calcula a situação do aluno.
-            # Como esse metodo possui um return, ele devolve o resultado ("Aprovado" ou "Reprovado") para esta chamada.
-            # Assim, o resultado retornado pode ser usado diretamente na mensagem. -> O return volta para onde fiz a chamada da funçãao 
-            f"Situação do aluno: {self.aproveitamento_escola(nota1, nota2)}\n" #
-
-        )
 
 # ===============================================================
-# Herda de aluno
-# Acontece o mesmo que em alunoescola
+
+# AlunoGraduacao também herda de Aluno.
+# A diferença é que a média mínima para aprovação é 7.
 
 class AlunoGraduacao(Aluno):
-    def __init__(self, nome, cpf, matricula, escola_segundo_grau):
-        Aluno.__init__(self, nome, cpf, matricula, escola_segundo_grau)
 
+    def __init__(self, nome, cpf, matricula, escola_segundo_grau, nota1, nota2):
 
-    def aproveitamento_graduacao(self, nota1, nota2):
+        # Chama o construtor de Aluno e passa todos os dados.
+        Aluno.__init__(
+            self,
+            nome,
+            cpf,
+            matricula,
+            escola_segundo_grau,
+            nota1,
+            nota2
+        )
 
-        media = (nota1 + nota2) / 2
+    def calcular_aprovacao(self):
 
-        if media >= 7:
+        if self.calcular_media() >= 7:
             return "Aprovado"
         else:
             return "Reprovado"
 
-
-    def exibir_dados_graduacao(self, nota1, nota2):
-
-        return (
-            f"Nome do aluno:{self.get_nome()}\n"
-            f"Matricula do aluno:{self.get_matricula()}\n"
-            f"Situação do aluno: {self.aproveitamento_graduacao(nota1, nota2)}\n"
-
-        )
+    def aproveitamento_graduacao(self):
+        return self.calcular_aprovacao()
