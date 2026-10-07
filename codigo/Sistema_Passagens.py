@@ -18,19 +18,16 @@ class Voo:
 
     def get_distancia(self):
         return self.__distancia
-
     def set_distancia(self, distancia):
         self.__distancia = distancia
 
     def get_destino(self):
         return self.__destino
-
     def set_destino(self, destino):
         self.__destino = destino
 
     def get_data_voo(self):
         return self.__data_voo
-
     def set_data_voo(self, data_voo):
         self.__data_voo = data_voo
 
@@ -65,7 +62,6 @@ class VooDomestico(Voo):
 
     def get_fator(self):
         return self.__fator
-
     def set_fator(self, fator):
         self.__fator = fator
 
@@ -81,33 +77,31 @@ class VooDomestico(Voo):
 class VooInternacional(Voo):
 
     # Além dos dados comuns, recebe o fator e a taxa de conversão.
-    def __init__(self, origem, distancia, destino, data_voo, fator, taxa_conersao):
+    def __init__(self, origem, distancia, destino, data_voo, fator, taxa_conversao):
 
         # Chama o construtor da classe Voo para inicializar
         # origem, distância, destino e data do voo.
         Voo.__init__(self, origem, distancia, destino, data_voo)
 
         self.__fator = fator
-        self.__taxa_conersao = taxa_conersao
+        self.__taxa_conversao = taxa_conversao
 
     def get_fator(self):
         return self.__fator
-
     def set_fator(self, fator):
         self.__fator = fator
 
-    def get_taxa_conersao(self):
-        return self.__taxa_conersao
-
-    def set_taxa_conersao(self, taxa_conersao):
-        self.__taxa_conersao = taxa_conersao
+    def get_taxa_conversao(self):
+        return self.__taxa_conversao
+    def set_taxa_conversao(self, taxa_conversao):
+        self.__taxa_conversao = taxa_conversao
 
     # Sobrescreve o metodo calcular_preco() da classe Voo.
     # Primeiro calcula o preço pela distância e pelo fator.
     # Depois aplica a taxa de conversão.
     def calcular_preco(self):
         preco = self.get_distancia() * self.get_fator()
-        return preco * self.get_taxa_conersao()
+        return preco * self.get_taxa_conversao()
 
 
 # duvidas -> Pq n usar o set para os calculos e so o get? Como fica o def exibir dados, como ele sabe qual estou chamando?

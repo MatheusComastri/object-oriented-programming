@@ -1,20 +1,20 @@
 class Funcionario:
     # Construtor da classe pai.
     def __init__(self, nome, salarioMensal):
-        self.nome = nome
-        self.salarioMensal = salarioMensal
+        self.__nome = nome
+        self.__salarioMensal = salarioMensal
 
     def get_nome(self):
-        return self.nome
+        return self.__nome
 
     def set_nome(self, nome):
-        self.nome = nome
+        self.__nome = nome
 
     def get_salarioMensal(self):
-        return self.salarioMensal
+        return self.__salarioMensal
 
     def set_salarioMensal(self, salarioMensal):
-        self.salarioMensal = salarioMensal
+        self.__salarioMensal = salarioMensal
 
 
     def calcularPagamento(self):
@@ -50,7 +50,8 @@ class Gerente(Funcionario):
 
     # Gerente recebe salário + bônus de R$ 2.000.
     def calcularPagamento(self):
-        return self.get_salarioMensal() + 2000
+        bonus = 2000
+        return self.get_salarioMensal() + bonus
 
 
 # ==========================================================================
@@ -66,14 +67,16 @@ class Diretor(Funcionario):
 
     def get_lucroMensal(self):
         return self.__lucroMensal
-
     def set_lucroMensal(self, lucroMensal):
         self.__lucroMensal = lucroMensal
 
+
     # Diretor recebe salário + 10% dos lucros.
     def calcularPagamento(self):
-        participacao = self.__lucroMensal * 0.10
+        participacao = self.get_salarioMensal() + self.__lucroMensal * 0.10
 
         return self.get_salarioMensal() + participacao
         # O lucro é armazenado no objeto para que o metodo exibir_dados() herdado possa chamar calcularPagamento()
         # sem precisar receber o lucro como parâmetro self.__lucroMensal = lucroMensal
+
+

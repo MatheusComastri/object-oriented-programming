@@ -20,6 +20,37 @@ class Veiculo:
         self.__preco = preco
 
 
+    def calcular_custo(self, fator):
+        calculo = self.__preco * fator
+        return calculo
+
+
+
+class Carro(Veiculo):
+    def __init__(self, marca, modelo, preco):
+        Veiculo.__init__(self, marca, modelo, preco)
+
     def calcular_custo(self):
-        return
+        fator = 15
+        return Veiculo.calcular_custo(self, fator)
+
+
+
+class Moto(Veiculo):
+    def __init__(self, marca, modelo, preco):
+        Veiculo.__init__(self, marca, modelo, preco)
+
+    def calcular_custo(self):
+        fator = 10
+        return Veiculo.calcular_custo(self, fator)
+
+
+class Bicicleta(Veiculo):
+    def __init__(self, marca, modelo, preco):
+        Veiculo.__init__(self, marca, modelo, preco)
+
+    def calcular_custo(self):
+        fator = 5
+        return Veiculo.calcular_custo(self, fator)
+
 

@@ -25,7 +25,12 @@ class ContaBancaria:
         return
 
     def sacar(self):
-        return
+        if self.get_valor() <= self.get_saldo():
+            self.set_saldo(self.get_saldo() - self.get_valor())
+            return self.get_valor()
+        else:
+            return "Sem saldo"
+
 
     def calcularjuros(self):
         return
@@ -54,11 +59,7 @@ class ContaCorrente(ContaBancaria):
         return self.get_saldo()
 
     def sacar(self):
-        if self.get_valor() <= self.get_saldo():
-            self.set_saldo(self.get_saldo() - self.get_valor())
-            return self.get_valor()
-        else:
-            return "Sem saldo"
+        ContaBancaria.sacar(self)
 
 
 
@@ -86,11 +87,7 @@ class ContaPoupanca(ContaBancaria):
         return self.get_saldo()
 
     def sacar(self):
-        if self.get_valor() <= self.get_saldo():
-            self.set_saldo(self.get_saldo() - self.get_valor())
-            return self.get_valor()
-        else:
-            return "Sem saldo"
+        return ContaBancaria.sacar(self)
 
     def calcularjuros(self):
         juros = self.get_saldo() * self.get_taxa()

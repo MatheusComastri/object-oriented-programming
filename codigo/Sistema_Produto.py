@@ -31,8 +31,10 @@ class Produtos:
     def set_quantidade_vendida(self, quantidade_vendida):
         self.__quantidade_vendida = quantidade_vendida
 
+
     def calcular_preco(self):
-        return
+        return self.get_preco_unitario() * self.get_quantidade_vendida()
+
 
     # Realiza a venda somente se houver estoque suficiente.
     def vender(self, quantidade):
@@ -78,7 +80,7 @@ class ProdutoEletronico:
     # Sobrescreve o metodo calcular_preco() da classe Produtos.
     # O preço total é o preço unitário multiplicado pela quantidade vendida.
     def calcular_preco(self):
-        return self.get_preco_unitario() * self.get_quantidade_vendida()
+        return Produtos.calcular_preco(self)
 
 
 # ==========================================================================
@@ -121,4 +123,4 @@ class ProdutoAlimento(Produtos):
 
     # O preço total é o preço por quilo multiplicado pela quantidade vendida.
     def calcular_preco(self):
-        return self.get_preco_unitario() * self.get_quantidade_vendida()
+        return Produtos.calcular_preco(self)
