@@ -105,3 +105,4 @@ class VooInternacional(Voo):
 
 
 # duvidas -> Pq n usar o set para os calculos e so o get? Como fica o def exibir dados, como ele sabe qual estou chamando?
+

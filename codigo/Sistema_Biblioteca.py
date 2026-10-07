@@ -18,8 +18,10 @@ class MaterialBiblioteca:
         self.__data_publicacao = data_publicacao
 
 
-    def calcular_data_devolucao(self):
-        return
+    def calcular_data_devolucao(self, prazo):
+        data_aluguel = datetime.now().date()
+        return data_aluguel + timedelta(days=prazo)
+
 
 
 class Livro(MaterialBiblioteca):
@@ -27,11 +29,8 @@ class Livro(MaterialBiblioteca):
         MaterialBiblioteca.__init__(self, titulo, data_publicacao)
 
     def calcular_data_devolucao(self):
-        data_aluguel = datetime.now().date()
         prazo = 15
-
-        return data_aluguel + timedelta(days=prazo)
-
+        return MaterialBiblioteca.calcular_data_devolucao(self, prazo)
 
 
 class Revista(MaterialBiblioteca):
@@ -39,10 +38,8 @@ class Revista(MaterialBiblioteca):
         MaterialBiblioteca.__init__(self, titulo, data_publicacao)
 
     def calcular_data_devolucao(self):
-        data_aluguel = datetime.now().date()
         prazo = 7
-
-        return data_aluguel + timedelta(days=prazo)
+        return MaterialBiblioteca.calcular_data_devolucao(self, prazo)
 
 
 class Filme(MaterialBiblioteca):
@@ -50,9 +47,6 @@ class Filme(MaterialBiblioteca):
         MaterialBiblioteca.__init__(self, titulo, data_publicacao)
 
     def calcular_data_devolucao(self):
-        data_aluguel = datetime.now().date()
         prazo = 5
-
-        return data_aluguel + timedelta(days=prazo)
-
+        return MaterialBiblioteca.calcular_data_devolucao(self, prazo)
 

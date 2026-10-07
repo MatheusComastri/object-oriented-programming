@@ -22,14 +22,9 @@ class Produtos:
 
 
     # Cada tipo de produto terá uma forma diferente de calcular o preço (Poliformismo).
-    def CalcularPreco(self):
-        return
+    def CalcularPreco(self, desconto):
+        return self.get_preco() - (self.get_preco() * desconto)
 
-    def exibir_dados(self):
-        return (
-            f'Nome: {self.get_nome()}\n'
-            f'Preco: {self.CalcularPreco()}\n'
-        )
 
 # ==========================================================================
 
@@ -45,7 +40,8 @@ class ProdutoEletronico(Produtos):
     # Sobrescreve o metodo CalcularPreco() da classe Produtos.
     # Aqui o produto eletrônico recebe 10% de desconto.
     def CalcularPreco(self):
-        return self.get_preco() - (self.get_preco() * 0.10)
+        desconto = 0.10
+        return Produtos.CalcularPreco(self, desconto)
 
 
 # ==========================================================================
@@ -57,7 +53,8 @@ class ProdutoRoupa(Produtos):
 
 
     def CalcularPreco(self):
-        return self.get_preco() - (self.get_preco() * 0.20)
+        desconto = 0.20
+        return Produtos.CalcularPreco(self, desconto)
 
 
 # ==========================================================================
@@ -68,4 +65,5 @@ class ProdutoLivro(Produtos):
         Produtos.__init__(self, nome, preco)
 
     def CalcularPreco(self):
-        return self.get_preco() - (self.get_preco() * 0.05)
+        desconto = 0.05
+        return Produtos.CalcularPreco(self, desconto)

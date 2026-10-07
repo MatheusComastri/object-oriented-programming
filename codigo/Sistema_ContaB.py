@@ -54,12 +54,14 @@ class ContaCorrente(ContaBancaria):
         self.__taxa = taxa
 
     def depositar(self):
-        novo_saldo = (self.get_valor() + self.get_saldo()) - self.get_taxa()
+        valor_total = self.get_valor() + self.get_saldo()
+        novo_saldo = valor_total * (1 - self.get_taxa()) #1- é usado para inerter o sinal (n deixa o numero negativo)
+
         self.set_saldo(novo_saldo)
         return self.get_saldo()
 
     def sacar(self):
-        ContaBancaria.sacar(self)
+        return ContaBancaria.sacar(self)
 
 
 

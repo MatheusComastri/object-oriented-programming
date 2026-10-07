@@ -21,7 +21,7 @@ class Veiculo:
 
 
     def calcular_custo(self, fator):
-        calculo = self.__preco * fator
+        calculo = self.__preco + (self.__preco * (fator/100))
         return calculo
 
 

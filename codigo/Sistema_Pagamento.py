@@ -73,7 +73,7 @@ class Diretor(Funcionario):
 
     # Diretor recebe salário + 10% dos lucros.
     def calcularPagamento(self):
-        participacao = self.get_salarioMensal() + self.__lucroMensal * 0.10
+        participacao = self.__lucroMensal * 0.10
 
         return self.get_salarioMensal() + participacao
         # O lucro é armazenado no objeto para que o metodo exibir_dados() herdado possa chamar calcularPagamento()
