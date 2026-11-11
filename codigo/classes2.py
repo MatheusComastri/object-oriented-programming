@@ -58,6 +58,7 @@ class Curso:
         # inicializa uma lista vazia para armazenar os alunos matriculados no curso
         self.__alunos = []
         self.__professores = []
+        self.__turmas = []
 
 
     def get_alunos(self):
@@ -69,6 +70,11 @@ class Curso:
         return self.__professores
     def set_professores(self, professores):
         self.__professores = professores
+
+    def get_turmas(self):
+        return self.__turmas
+    def set_turmas(self, turmas):
+        self.__turmas = turmas
 
 
     def matricular(self, aluno):
@@ -94,13 +100,17 @@ class Curso:
         # retorna a lista resultado contendo somente os nomes.
         return resultado
 
+    def adcionar_turmas(self, turmas):
+        self.__turmas.append(turmas)
+
     def get_get_contratar_professores(self, professor): # errrado
         self.__professores.append(professor)
 
     def get_nomes_professores_turma(self):
         resultado = []
-        for professor in self.__professores:
-            resultado.append(professor.get_nome())
+        for turma in self.__turmas:
+            resultado.append(turma.get_professor().get_nome())
+        return resultado
 
     # numero 8
     def verificar_aluno(self, aluno):

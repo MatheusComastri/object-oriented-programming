@@ -136,5 +136,61 @@ def test_retonar_nomes_alunos_turma():
 
 # ================================ Numero 3 =======================================
 
+# Teste para verificar se as turmas são adicionadas e retornadas corretamente pelo curso.
+def test_retornar_turmas():
+    curso = Curso()
+
+    # Cria duas turmas.
+    turmaA = Turma()
+    turmaB = Turma()
+
+    # Adiciona as duas turmas à lista de turmas do curso.
+    curso.adcionar_turmas(turmaA)
+    curso.adcionar_turmas(turmaB)
+
+    # Verifica se o metodo retorna as mesmas turmas, na ordem em que foram adicionadas.
+    assert curso.get_turmas() == [turmaA, turmaB]
 
 
+# Teste para verificar se os professores são adicionados e retornados corretamente pelo curso.
+def test_retornar_professores_turmas():
+    curso = Curso()
+
+    # Cria dois objetos da classe Professor.
+    professor1 = Professor()
+    professor2 = Professor()
+
+    # Adiciona os dois professores à lista de professores do curso.
+    curso.get_get_contratar_professores(professor1)
+    curso.get_get_contratar_professores(professor2)
+
+    # Verifica se o metodo retorna os mesmos professores, na ordem em que foram adicionados.
+    assert curso.get_professores() == [professor1, professor2]
+
+
+# Teste para verificar se é possível obter os nomes dos professores que lecionam nas turmas do curso.
+def test_retornar_nomes_professores_turmas():
+    curso = Curso()
+
+    # Cria o primeiro professor e define seu nome.
+    professor1 = Professor()
+    professor1.set_nome("Bruno")
+
+    # Cria o segundo professor e define seu nome.
+    professor2 = Professor()
+    professor2.set_nome("Marcos")
+
+    # Cria duas turmas.
+    turmaA = Turma()
+    turmaB = Turma()
+
+    # Associa cada professor à sua respectiva turma.
+    turmaA.set_professor(professor1)
+    turmaB.set_professor(professor2)
+
+    # Adiciona as duas turmas ao curso.
+    curso.adcionar_turmas(turmaA)
+    curso.adcionar_turmas(turmaB)
+
+    # Verifica se o metodo retorna os nomes dos professores das turmas.
+    assert curso.get_nomes_professores_turma() == ["Bruno", "Marcos"]
